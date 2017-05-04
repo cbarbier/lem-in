@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_strshift.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 14:30:37 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/04/28 15:06:45 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/04/28 15:09:19 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-int		ft_lstdel(t_list **alst, void (*del)(void*, size_t))
+void			ft_strshift(char **data, char c)
 {
-	t_list	*next;
+	char *tmp;
+	char *pos;
 
-	while (*alst)
-	{
-		next = (*alst)->next;
-		ft_lstdelone(alst, del);
-		*alst = next;
-	}
-	return (1);
+	tmp = *data;
+	if (!(pos = ft_strchr(tmp, c)))
+		*data = ft_strnew(0);
+	else
+		*data = ft_strdup(pos + 1);
+	free(tmp);
 }

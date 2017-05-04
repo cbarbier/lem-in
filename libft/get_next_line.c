@@ -6,7 +6,7 @@
 /*   By: cbarbier <cbarbier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 19:55:34 by cbarbier          #+#    #+#             */
-/*   Updated: 2016/11/28 11:37:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/04/28 16:59:23 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,13 @@ static char			*update_line(char *str)
 	return (ft_strsub(str, 0, pos - str));
 }
 
-static void			shift_data(char **data)
+static void			free_fbuffer(void *fbuffer, size_t size)
 {
-	char *tmp;
-	char *pos;
+	t_fbuffer	*tmp;
 
-	tmp = *data;
-	if (!(pos = ft_strchr(tmp, '\n')))
-		*data = ft_strnew(0);
-	else
-		*data = ft_strdup(pos + 1);
+	tmp = (t_fbuffer *)fbuffer;
+	(void)size;
+	ft_strdel(&(tmp->data));
 	free(tmp);
 }
 
@@ -82,6 +79,8 @@ int					get_next_line(const int fd, char **line)
 	char			*tmp;
 	int				count;
 
+	if (fd == -42 && ft_lstdel(&lst, free_fbuffer))
+		return (0);
 	if (!line || fd < 0)
 		return (-1);
 	fbuffer = find_create_fbuffer(fd, &lst);
@@ -89,7 +88,7 @@ int					get_next_line(const int fd, char **line)
 		return (-1);
 	*line = update_line(fbuffer->data);
 	tmp = fbuffer->data;
-	shift_data(&(fbuffer->data));
+	ft_strshift(&(fbuffer->data), '\n');
 	if (!**line && !count)
 		return (0);
 	else

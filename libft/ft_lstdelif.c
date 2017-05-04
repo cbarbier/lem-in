@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelif.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/04/28 14:30:37 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/04/28 17:04:31 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/05/01 13:55:53 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
+#include "includes/ft_lst.h"
 
-int		ft_lstdel(t_list **alst, void (*del)(void*, size_t))
+int		ft_lstdelif(t_list **al, void (*del)(void*, size_t), int (*f)(void *))
 {
+	t_list	*l;
+	t_list	*tmp;
 	t_list	*next;
 
-	while (*alst)
+	if (!al || !(l = *al))
+		return (0);
+	tmp = 0;
+	while (l)
 	{
-		next = (*alst)->next;
-		ft_lstdelone(alst, del);
-		*alst = next;
+		if (f(l->content))
+		{
+			next = l->next;
+			if (!tmp)
+				*al = l->next;
+			else
+				tmp->next = l->next;
+			ft_lstdelone(&l, del);
+		}
+		else
+			tmp = l;
+		l = (tmp ? tmp->next : next);
 	}
 	return (1);
 }
