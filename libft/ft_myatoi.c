@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:05:14 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/04 17:24:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/09 10:48:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static int				skip_chars(char *str, unsigned int *ind, const char *to_skip)
+static int		skip_chars(char *str, unsigned int *ind, const char *to_skip)
 {
 	unsigned int		i;
 
@@ -23,7 +23,7 @@ static int				skip_chars(char *str, unsigned int *ind, const char *to_skip)
 	return (i);
 }
 
-int					ft_myatoi(char *str, int *a)
+int				ft_myatoi(char *str, int *a)
 {
 	unsigned int	res;
 	unsigned int	i;

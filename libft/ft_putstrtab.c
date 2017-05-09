@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstrtab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/09 14:56:00 by cbarbier         ###   ########.fr       */
+/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/05/09 11:20:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lemin.h"
+#include "libft.h"
 
-int				main(int argc, char **argv)
+void	ft_putstrtab(char **t)
 {
-	t_lemin		lemin;
-	(void)argv;
-	(void)argc;
+	char		*w;
 
-	ft_bzero(&lemin, sizeof(t_lemin));
-	if (!parse(&lemin))
-		return (0);
-	ft_putstrtab(lemin->file);
-	return (1);
+	if (!t)
+		return ;
+	while (*t)
+	{
+		w = (char *)*t;
+		write(1, w, ft_strlen(w));
+		write(1, "\n", 1);
+		t++;
+	}
 }

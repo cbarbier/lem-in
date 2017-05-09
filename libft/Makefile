@@ -23,6 +23,7 @@ SRC  = ft_memset.c \
 	   ft_memcmp.c \
 	   ft_memswap.c \
 	   ft_strlen.c \
+	   ft_strtablen.c \
 	   ft_strdup.c \
 	   ft_strcpy.c \
 	   ft_strncpy.c \
@@ -62,6 +63,8 @@ SRC  = ft_memset.c \
 	   ft_strjoinzfree.c \
 	   ft_strtrim.c \
 	   ft_strsplit.c \
+	   ft_strsplitif.c \
+	   ft_str_to_tab.c \
 	   ft_pow.c \
 	   ft_itoa.c \
 	   ft_ftoa.c \
@@ -70,6 +73,7 @@ SRC  = ft_memset.c \
 	   ft_uimtoa_base.c \
 	   ft_putchar.c \
 	   ft_putstr.c \
+	   ft_putstrtab.c \
 	   ft_putendl.c \
 	   ft_putnbr.c \
 	   ft_putchar_fd.c \

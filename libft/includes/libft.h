@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/04 17:03:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:21:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			ft_memswap(void **a, void **b);
 size_t			ft_strlen(const char *s);
+size_t			ft_strtablen(char **t);
 char			*ft_strdup(const char *s1);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strncpy(char *dst, const char *src, size_t len);
@@ -67,6 +68,8 @@ char			*ft_strjoinfree(char const *s1, char const *s2);
 char			*ft_strjoinzfree(char const *s1, char const *s2, int n);
 char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
+char			**ft_strsplitif(char const *s, int (*f)(char));
+char			**ft_str_to_tab(char **tab, char *str);
 intmax_t		ft_pow(int n, unsigned int p);
 char			*ft_itoa(int n);
 char			*ft_ftoa(double n, unsigned int p);
@@ -74,6 +77,7 @@ char			*ft_imtoa_base(intmax_t n, int base);
 char			*ft_uimtoa_base(uintmax_t n, int base);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
+void			ft_putstrtab(char **t);
 void			ft_putendl(char const *s);
 void			ft_putnbr(int n);
 void			ft_putchar_fd(char c, int fd);
