@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/09 14:56:00 by cbarbier         ###   ########.fr       */
+/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
+/*   Updated: 2016/11/12 10:38:56 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lemin.h"
+#include "libft.h"
 
-int				main(int argc, char **argv)
+int	ft_strnchr(const char *s, int c)
 {
-	t_lemin		lemin;
-	(void)argv;
-	(void)argc;
+	int	sum;
+	char	*ptr;
 
-	ft_bzero(&lemin, sizeof(t_lemin));
-	if (!parse(&lemin))
-		return (0);
-	ft_putstrtab(lemin.file);
-	return (1);
+	ptr = (char *)s;
+	sum = 0;
+	while (*ptr)
+	{
+		if (*ptr == (char)c)
+			sum++;
+		ptr++;
+	}
+	return (sum);
 }

@@ -30,7 +30,7 @@ static int			parse_nb_ants(t_lemin *lemin)
 	return (ret);
 }
 
-static int		dash_in_name(char *str)
+static int		is_dash_in_name(char *str)
 {
 	while (*str && *str != ' ' && *str != '\t')
 	{
