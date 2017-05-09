@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,19 @@
 
 #include "../includes/lemin.h"
 
-int				main(int argc, char **argv)
+int				parse(t_lemin *lemin)
 {
-	t_lemin		lemin;
-	(void)argv;
-	(void)argc;
+	char	*line;
+	int	ret;
 
-	ft_bzero(&lemin, sizeof(t_lemin));
-	if (!parse(&lemin))
+	ret = 1;
+	if (get_next_line(0, &line) <= 0)
 		return (0);
-	return (1);
+	if (!ft_myatoi(line, &(lemin->nb_ant)))
+		ret = 0;
+	ft_strdel(&line);
+	if (lemin->nb_ant <= 0)
+		ret = 0;
+	ft_printf("nb ants: %d\n", lemin->nb_ant);	
+	return (ret);
 }

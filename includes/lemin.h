@@ -33,5 +33,6 @@ typedef struct	s_lemin
 	t_node	*end;
 	t_list	*paths;
 }				t_lemin;
+int				parse(t_lemin *lemin);
 
 #endif

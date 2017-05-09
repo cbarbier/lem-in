@@ -14,7 +14,8 @@ NAME			= lem-in
 LIB				= libft/libft.a
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
-SRCS			= srcs/main.c
+SRCS			= srcs/main.c \
+			  srcs/parse.c
 
 OBJS			= $(SRCS:.c=.o)
 
