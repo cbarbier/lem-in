@@ -6,11 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 17:28:48 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/09 18:49:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/10 19:10:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 static char		**check_room(char *str, char ***infos, int *coords)
 {
@@ -20,34 +20,39 @@ static char		**check_room(char *str, char ***infos, int *coords)
 	ret = 1;
 	if (!str || !*str)
 		return (0);
-	if (!(t = ft_strsplit(str, is_blank_tab(str))) || ft_strtablen(t) != 3)
+	if (!(t = ft_strsplitif(str, is_blank_tab)) || ft_strtablen(t) != 3)
 		ret = 0;
-	if (ret && !ft_myatoi(res[1], coords))
+	if (ret && !ft_myatoi(t[1], coords))
 		ret = 0;
-	if (ret && !ft_myatoi(res[2], coords + 1))
+	if (ret && !ft_myatoi(t[2], coords + 1))
 		ret = 0;
 	*infos = t;
-	return (ret);
+	return (ret ? t : 0);
 }
 
 static t_node	*create_node(t_lemin *lemin, char *str, int *co)
 {
 	t_node		*new;
 
+	(void)lemin;
 	if (!(new = ft_memalloc(sizeof(t_node))))
-			return (0);
-	new->name = ft_strdup(str);
+		return (0);
+	if (!(new->name = ft_strdup(str)))
+		return (0);
 	new->x = co[0];
 	new->y = co[1];
-	return (1);
+	return (new);
 }
 
-static int		add_list(t_lemin *lemin, t_node **lst,  char *str, int *co)
+static t_node	*add_list(t_lemin *lemin, t_node **alst,  char *str, int *co)
 {
 	t_node		*tmp;
 	t_node		*new;
+	t_node		*lst;
 
-	tmp = *lst;
+	lst = *alst;
+	tmp = lst;
+	new = 0;
 	while (lst && (tmp = lst))
 	{
 		if (!ft_strcmp(lst->name, str))
@@ -56,8 +61,9 @@ static int		add_list(t_lemin *lemin, t_node **lst,  char *str, int *co)
 			lst = lst->next;
 	}
 	if (!(new = create_node(lemin, str, co)))
+		return (0);
 	if (!tmp)
-		*lst = new;
+		*alst = new;
 	else
 		tmp->next = new;
 	return (new);
@@ -67,14 +73,18 @@ t_node			*add_room(t_lemin *lemin, t_node *lst,  char *str)
 {
 	char	**infos;
 	int		coords[2];
-	t_node	*ret;
+	int		ret;
+	t_node	*new;
 
-	ret = 0;
+	(void)lst;
+	ret = 1;
+	new = 0;
 	if (!(infos = check_room(str, &infos, coords)))
 		ret = 0;
-	if (ret && !(ret = add_list(lemin, &(lemin->rooms), res[0], coords)))
+	if (ret && !(new = add_list(lemin, &(lemin->rooms), infos[0], coords)))
 		ret = 0;
 	ft_strtabdel(&infos);
-	return (ret);
+	if (ret)
+		lemin->nb_room++;
+	return (ret ? new : 0);
 }
-

@@ -6,11 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 13:48:56 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/09 18:51:05 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:58:32 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inlcudes/lemin.h"
+#include "../includes/lemin.h"
 
 static int	is_valid_line(char *line)
 {
@@ -25,21 +25,23 @@ static int	set_start_n_end(t_lemin *lemin, char *str)
 {
 	t_node		*new;
 	char		*line;
+	int			ret;
 
-	lemin->map = ft_str_to_map(lemnin->file, str);
-	if (ft_strcmp(str + 2, "start") && ft_strcmp(str + 2, "start"))
+	if (ft_strcmp(str + 2, "start") && ft_strcmp(str + 2, "end"))
 		return (0);
 	line = 0;
 	while ((ret = get_next_line(0, &line)) > 0 && is_valid_line(line) < 0)
-		lemin->map = ft_str_to_map(lemnin->file, line);
+		lemin->file = ft_str_to_tab(lemin->file, line);
 	if (ret <= 0)
 		return (0);
-	if (!(new = add_room(lemin, line)))
-		return (new);
-	if (!ft_strcmp(str + 2, "start"))
-		new->pos = 1;
 	else
-		new->pos = -1;
+		lemin->file = ft_str_to_tab(lemin->file, line);
+	if (!(new = add_room(lemin, lemin->rooms, line)))
+		return (0);
+	if (!ft_strcmp(str + 2, "start"))
+		lemin->start = new;
+	else
+		lemin->end = new;
 	return (1);
 }
 
@@ -49,7 +51,7 @@ int			parse_nodes(t_lemin *lemin, char *str)
 		return (set_start_n_end(lemin, str));
 	if (str && ft_strchr("#L", str[0]))
 		return (0);
-	add_room(lemin, str);
+	add_room(lemin, lemin->rooms, str);
 	return (1);
-}	
+}
 

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_links.c                                      :+:      :+:    :+:   */
+/*   ft_strtabdel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 18:41:25 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/09 18:52:05 by cbarbier         ###   ########.fr       */
+/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/05/10 09:26:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- 
-#include "includes/lemin.h"
 
-int			parse_links(t_lemin *lemin, char *line)
+#include "libft.h"
+
+void	ft_strtabdel(char ***at)
 {
-	char	**infos;
-	int 	ret;
+	char	**tab;
 
-	ret = 1;
-	lemin->file = ft_str_to_tab(lemin->file, line);
-	if (!ft_strncmp(str, "##", 2))
-		ret = 0;
-	if (ret && ft_strnchr(line, '-') != 1)
-		ret = 0;
-	if (!(infos = ft_strsplit(line, '-')))
-		ret = 0;
-	return (1);
+	if (!at || !*at)
+		return ;
+	tab = *at;
+	while (*tab)
+		ft_strdel(tab++);
+	*at = NULL;
 }

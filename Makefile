@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/05/03 17:36:05 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/05/10 20:05:38 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,12 @@ LIB				= libft/libft.a
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 SRCS			= srcs/main.c \
-			  srcs/parse.c
+				  srcs/parse.c \
+				  srcs/add_room.c \
+				  srcs/links_to_tab.c \
+				  srcs/get_links.c \
+				  srcs/bfs.c \
+				  srcs/parse_nodes.c
 
 OBJS			= $(SRCS:.c=.o)
 

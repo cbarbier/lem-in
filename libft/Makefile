@@ -51,6 +51,7 @@ SRC  = ft_memset.c \
 	   ft_memdel.c \
 	   ft_strnew.c \
 	   ft_strdel.c \
+	   ft_strtabdel.c \
 	   ft_strclr.c \
 	   ft_striter.c \
 	   ft_striteri.c \
