@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 10:52:45 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:41:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 typedef struct	s_node
 {
-	int				id;
+	int				ant;
 	char			*name;
 	int				x;
 	int				y;
@@ -25,6 +25,7 @@ typedef struct	s_node
 	struct s_node	*next;
 	struct s_node	*qnext;
 	struct s_node	*pprev;
+	struct s_node	*pnext;
 	int				state;
 }				t_node;
 

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 11:49:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/11 16:27:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,20 @@ int				put_tree(t_lemin *lemin)
 static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
 {
 	int			index;
+	t_node		*last;
 
+	last = 0;
 	while (room != lemin->end)
 	{
 		ft_printf("%s - ", room->name);
 		index = 0;
 		while (index < room->nb_child)
 		{
-			if (room->child[index]->state == mark
+			if ((room->child[index] != last
+			&& room->child[index]->state == mark)
 			|| room->child[index] == lemin->end)
 			{
+				last = room;
 				room = room->child[index];
 				break;
 			}
@@ -92,9 +96,9 @@ int				main(int argc, char **argv)
 	}
 	ft_putstrtab(lemin.file);
 	put_tree(&lemin);
-	lemin.end->state = 1;
-	find_path(&lemin, 0);
+	find_path(&lemin, 1);
 	ft_printf("bfs done!\n");
+	put_tree(&lemin);
 	put_paths(&lemin);
 	return (1);
 }

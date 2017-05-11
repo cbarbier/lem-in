@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:53:46 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 18:53:45 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/11 16:10:47 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static t_node	***create_tab(t_node **link)
 	if (!(new = (t_node ***)ft_memalloc(2 * sizeof(t_node **))))
 		return (0);
 	new[0] = link;
+	link[0]->nb_child++;
+	link[1]->nb_child++;
 	return (new);
 }
 
