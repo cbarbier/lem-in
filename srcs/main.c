@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 20:40:39 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/11 11:49:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-static int		put_tree(t_lemin *lemin)
+int				put_tree(t_lemin *lemin)
 {
 	t_node		*rooms;
 	int			index;
@@ -28,7 +28,10 @@ static int		put_tree(t_lemin *lemin)
 			ft_printf("{red}end{no}\n");
 		ft_printf("{grn}%s {yel}[%d,  %d]{no}  nb_child: %d\n", rooms->name, rooms->x, rooms->y, rooms->nb_child);
 		while (index < rooms->nb_child)
-			ft_printf("{blu} %s", rooms->child[index++]->name);
+		{
+			ft_printf("{blu} %s {%d}", rooms->child[index]->name, rooms->child[index]->state);
+			index++;
+		}
 		ft_printf("\n{grn}------------{no}\n");
 		rooms = rooms->next;
 	}
@@ -36,10 +39,48 @@ static int		put_tree(t_lemin *lemin)
 	return (1);
 }
 
+static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
+{
+	int			index;
+
+	while (room != lemin->end)
+	{
+		ft_printf("%s - ", room->name);
+		index = 0;
+		while (index < room->nb_child)
+		{
+			if (room->child[index]->state == mark
+			|| room->child[index] == lemin->end)
+			{
+				room = room->child[index];
+				break;
+			}
+			index++;
+		}
+	}
+	ft_printf("%s\n", room->name);
+	return (1);
+}
+		
+static int		put_paths(t_lemin *lemin)
+{
+	int		index;
+
+	ft_printf("number of path found: %d\n", lemin->nb_path);
+	index = 1;
+	while (index <= lemin->nb_path)
+	{
+		ft_printf("PATH %d\n", index);
+		put_a_path(lemin, lemin->start, -index);
+		ft_printf("-------\n");
+		index++;
+	}
+	return (1);
+}
+
 int				main(int argc, char **argv)
 {
 	t_lemin		lemin;
-	t_node		*end;
 	(void)argv;
 	(void)argc;
 
@@ -51,14 +92,9 @@ int				main(int argc, char **argv)
 	}
 	ft_putstrtab(lemin.file);
 	put_tree(&lemin);
-	lemin.start->state = 1;
-	bfs(&lemin, lemin.start);
+	lemin.end->state = 1;
+	find_path(&lemin, 0);
 	ft_printf("bfs done!\n");
-	end = lemin.end;
-	while (end)
-	{
-		ft_printf("%s\n", end->name);
-		end = end->pprev;
-	}
+	put_paths(&lemin);
 	return (1);
 }

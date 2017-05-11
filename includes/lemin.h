@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 20:25:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/11 10:52:45 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ typedef struct	s_lemin
 	int		nb_ant;
 	int		nb_room;
 	int		nb_link;
+	int		nb_path;
 	t_node	*rooms;
 	t_node	*start;
 	t_node	*end;
-	t_list	*paths;
 }				t_lemin;
 int				parse(t_lemin *lemin);
 t_node			*add_room(t_lemin *lemin, t_node *lst,  char *str);
@@ -48,6 +48,7 @@ int				save_links(t_lemin *lemin, char *line);
 int				set_links(t_node ***links);
 int				is_blank_tab(char c);
 t_node			*get_room(t_node *rooms, char *name);
-int				bfs(t_lemin *lemin, t_node	*queue);
+int				find_path(t_lemin *lemin, int multi);
+int				put_tree(t_lemin *lemin);
 
 #endif
