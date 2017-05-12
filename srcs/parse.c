@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:20:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:58:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static int		parse_helper(t_lemin *lemin)
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
 		lemin->file = ft_str_to_tab(lemin->file, line);
-		if (!(line[0] == '#' && line[1] != '#'))
+		if (!(line[0] == '#' && (line[1] != '#'
+		|| (ft_strcmp(line, "##end") && ft_strcmp(line, "##start")))))
 		{
 			if (dash_in_name(line))
 				flag = 1;
