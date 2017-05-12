@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:36:18 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 18:16:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 08:53:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ static int			mark_path(t_lemin *lemin, t_node *room, int ipath)
 		room->state = -ipath;
 		tmp = room;
 		room = room->pprev;
-		tmp->pnext = room;
-		tmp->pprev = 0;
-		tmp->qnext = 0;
+		room->pnext = tmp;;
 	}
+	lemin->end->pnext = tmp;
 	return (1);
 }
 

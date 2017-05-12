@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 16:27:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 11:13:25 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ int				main(int argc, char **argv)
 	}
 	ft_putstrtab(lemin.file);
 	put_tree(&lemin);
-	find_path(&lemin, 1);
+	find_path(&lemin, 0);
 	ft_printf("bfs done!\n");
 	put_tree(&lemin);
 	put_paths(&lemin);
+	put_ants(&lemin, lemin.nb_ant);
 	return (1);
 }

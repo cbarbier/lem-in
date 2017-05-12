@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/05/10 20:05:38 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/05/12 08:23:21 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS			= srcs/main.c \
 				  srcs/links_to_tab.c \
 				  srcs/get_links.c \
 				  srcs/bfs.c \
+				  srcs/put_ants.c \
 				  srcs/parse_nodes.c
 
 OBJS			= $(SRCS:.c=.o)

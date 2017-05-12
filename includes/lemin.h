@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 18:41:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 11:12:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int				is_blank_tab(char c);
 t_node			*get_room(t_node *rooms, char *name);
 int				find_path(t_lemin *lemin, int multi);
 int				put_tree(t_lemin *lemin);
+int				put_ants(t_lemin *lemin, int nb_ant);
 
 #endif
