@@ -6,12 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 11:12:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:44:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIN_H
 # define LEMIN_H
+# define DEBUG 0
 # include "../libft/includes/libft.h"
 
 typedef struct	s_node
@@ -33,6 +34,7 @@ typedef struct	s_lemin
 {
 	char	**file;
 	t_node	***links;
+	t_node	**paths;
 	int		nb_ant;
 	int		nb_room;
 	int		nb_link;
@@ -42,7 +44,7 @@ typedef struct	s_lemin
 	t_node	*end;
 }				t_lemin;
 int				parse(t_lemin *lemin);
-t_node			*add_room(t_lemin *lemin, t_node *lst,  char *str);
+t_node			*add_room(t_lemin *lemin, t_node *lst, char *str);
 int				parse_nodes(t_lemin *lemin, char *str);
 t_node			***links_to_tab(t_lemin *lemin, t_node ***tab, char *str);
 int				save_links(t_lemin *lemin, char *line);

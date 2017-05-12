@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:36:18 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 08:53:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:20:21 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ static int			reset_queue(t_node *queue)
 	t_node		*tmp;
 
 	tmp = 0;
+	if (DEBUG)
+		ft_printf("queue: ");
 	while (queue)
 	{
+		if (DEBUG)
+			ft_printf("%s ", queue->name);
 		tmp = queue;
 		queue = queue->qnext;
 		tmp->qnext = 0;
 	}
+	if (DEBUG)
+		ft_printf("\n");
 	return (1);
 }
 
@@ -32,17 +38,19 @@ static int			bfs(t_lemin *lemin, t_node	*queue, int ipath)
 	int			index;
 
 	tmp = queue;
-	lemin->end->state = 1;
+	lemin->end->state = ipath;
 	while (queue)
 	{
 		index = 0;
-		ft_printf("cur %s\n", queue->name);
+		if (DEBUG)
+			ft_printf("cur %s\n", queue->name);
 		while (index < queue->nb_child)
 		{
 			if (queue->child[index]->state >= 0
 			&& queue->child[index]->state != ipath)
 			{
-				ft_printf("child %s ", queue->child[index]->name);
+				if (DEBUG)
+					ft_printf("child %s ", queue->child[index]->name);
 				queue->child[index]->pprev = queue;
 				tmp->qnext = queue->child[index];
 				tmp = tmp->qnext;
@@ -52,7 +60,8 @@ static int			bfs(t_lemin *lemin, t_node	*queue, int ipath)
 			}
 			index++;
 		}
-		ft_printf("\n");
+		if (DEBUG)
+			ft_printf("\n");
 		queue = queue->qnext;
 	}
 	return (0);
@@ -62,10 +71,8 @@ static int			mark_path(t_lemin *lemin, t_node *room, int ipath)
 {
 	t_node		*tmp;
 
-	ft_printf("\nmarking path\n");
 	while (room != lemin->end)
 	{
-		ft_printf("marking %s\n", room->name);
 		room->state = -ipath;
 		tmp = room;
 		room = room->pprev;
@@ -80,7 +87,8 @@ int					find_path(t_lemin *lemin, int multi)
 	int		ipath;
 
 	ipath = 1;
-
+	if (DEBUG)
+		put_tree(lemin);
 	if (!multi && bfs(lemin, lemin->end, ipath))
 	{
 		lemin->nb_path++;
@@ -89,10 +97,10 @@ int					find_path(t_lemin *lemin, int multi)
 	while (bfs(lemin, lemin->end, ipath))
 	{
 		mark_path(lemin, lemin->start, ipath++);
-		lemin->start->state = 0;
 		reset_queue(lemin->end);
+		if (!lemin->nb_path && lemin->start->pprev != lemin->end)
+			lemin->start->state = 0;
 //		put_tree(lemin);
-		ft_printf("#################next tour\n");
 		lemin->nb_path++;
 	}
 	return (lemin->nb_path);

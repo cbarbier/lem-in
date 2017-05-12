@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 18:40:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 16:17:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int			parse_nb_ants(t_lemin *lemin)
 	lemin->file = ft_str_to_tab(lemin->file, line);
 	if (!ft_myatoi(line, &(lemin->nb_ant)))
 		ret = 0;
-	ft_printf("nb ants: %d\n", lemin->nb_ant);
+//	ft_printf("nb ants: %d\n", lemin->nb_ant);
 	if (!ret || lemin->nb_ant <= 0)
 		ret = 0;
 	return (ret);
@@ -48,7 +48,7 @@ static int		dash_in_name(char *str)
 	return (0);
 }
 
-int				parse(t_lemin *lemin)
+static int		parse_helper(t_lemin *lemin)
 {
 	char	*line;
 	int		flag;
@@ -68,7 +68,18 @@ int				parse(t_lemin *lemin)
 					|| (flag && !save_links(lemin, line)))
 				return (0);
 		}
-		ft_printf("reading stdin %s\n", line);
+//		ft_printf("reading stdin %s\n", line);
 	}
+	return (1);
+}
+
+int				parse(t_lemin *lemin)
+{
+	if (!parse_helper(lemin))
+		return (0);
+	if (!lemin->start || !lemin->end)
+		return (0);
+	if (!lemin->nb_link)
+		return (0);
 	return (1);
 }

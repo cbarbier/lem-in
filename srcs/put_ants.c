@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 17:25:38 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 12:41:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 16:06:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-t_node	**set_paths(t_lemin *lemin, t_node *start)
+static t_node		**set_paths(t_lemin *lemin, t_node *end)
 {
 	t_node	**paths;
 	int		index;
@@ -21,30 +21,36 @@ t_node	**set_paths(t_lemin *lemin, t_node *start)
 	if (!(paths = (t_node **)ft_memalloc(lemin->nb_path * sizeof(t_node *))))
 		return (0);
 	index = 0;
-	while (index < start->nb_child)
+	while (index < end->nb_child)
 	{
-		if (start->child[index]->state < 0)
+		if (end->child[index]->state < 0)
 		{
-			index_path = -start->child[index]->state - 1;
-			paths[index_path] = start->child[index];
+			index_path = -end->child[index]->state - 1;
+			paths[index_path] = end->child[index];
+//			ft_printf("ip: %d  : %s\n", index_path, paths[index_path]->name);
 		}
 		index++;
 	}
 	return (paths);
 }
 
-static int		put_helper(t_lemin *lemin, t_node *room)
+static int		put_helper(t_lemin *lemin, t_node *room, int *nb, int left)
 {
 	int			i;
 	char		c;
+	int			ant;
 
 	c = ' ';
 	i = 0;
-	//lemin->start->ant = 0;
 	while (room != lemin->start)
 	{
-		if (room->ant)
-			ft_printf((i++ ? " L%d-%s" : "L%d-%s"), room->ant, room->name);
+		if ((*nb < lemin->nb_ant && room->pnext == lemin->start) || room->pnext->ant)
+		{
+			ant = (room->pnext == lemin->start ? ++(*nb) : room->pnext->ant);
+			room->ant = ant;
+			room->pnext->ant = 0;
+			ft_printf((i++ || left ? " L%d-%s" : "L%d-%s"), ant, room->name);
+		}
 		room = room->pnext;
 	}
 	return (i);
@@ -53,27 +59,26 @@ static int		put_helper(t_lemin *lemin, t_node *room)
 int				put_ants(t_lemin *lemin, int nb_ant)
 {
 	t_node		*end;
-	t_node		*tmp;
-	int			ants[2];
+	int			index;
+	int			left;
+	int			loop;
 
-	ft_bzero(ants, 2 * sizeof(int));
-	while (ants[1] < nb_ant)
+	lemin->paths = set_paths(lemin, lemin->end);
+	left = 1;
+	loop = 0;
+	while (left || nb_ant < lemin->nb_ant)
 	{
-		end = lemin->end;
-		tmp = 0;
-		lemin->start->ant = (ants[0] < nb_ant ? ++ants[0] : 0);
-		lemin->start->pnext = 0;
-		if (end->ant)
-			ants[1]++;
-		while (end)
+		left = 0;
+		index = 0;
+		while (index < lemin->nb_path)
 		{
-			if (tmp)
-				tmp->ant = end->ant;
-			tmp = end;
-			end = end->pnext;
+			end = lemin->end;
+			end->pnext = lemin->paths[index];
+			left += put_helper(lemin, end, &nb_ant, left);
+			index++;
 		}
-		put_helper(lemin, lemin->end);
-		ft_printf("\n");
+		if (left)
+			ft_printf("\n");
 	}
 	return (1);
 }

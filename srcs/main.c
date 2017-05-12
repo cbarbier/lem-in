@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 11:13:25 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 16:24:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,18 @@ int				main(int argc, char **argv)
 	(void)argc;
 
 	ft_bzero(&lemin, sizeof(t_lemin));
-	if (!parse(&lemin) || !set_links(lemin.links))
+	if (!parse(&lemin) || !set_links(lemin.links)
+	|| !find_path(&lemin, 1))
 	{
 		ft_printf("ERROR\n");
 		return (0);
 	}
 	ft_putstrtab(lemin.file);
-	put_tree(&lemin);
-	find_path(&lemin, 0);
-	ft_printf("bfs done!\n");
-	put_tree(&lemin);
-	put_paths(&lemin);
-	put_ants(&lemin, lemin.nb_ant);
+	ft_printf("\n");
+	if (DEBUG)
+		put_tree(&lemin);
+	if (DEBUG)
+		put_paths(&lemin);
+	put_ants(&lemin, 0);
 	return (1);
 }
