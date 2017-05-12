@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/05/12 08:23:21 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/05/12 18:37:35 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME			= lem-in
 LIB				= libft/libft.a
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
+HDR				= includes/lemin.h
 SRCS			= srcs/main.c \
 				  srcs/parse.c \
 				  srcs/add_room.c \
@@ -21,21 +22,20 @@ SRCS			= srcs/main.c \
 				  srcs/get_links.c \
 				  srcs/bfs.c \
 				  srcs/put_ants.c \
-				  srcs/parse_nodes.c
+				  srcs/parse_nodes.c \
+				  srcs/free.c
 
 OBJS			= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-display:
-	@echo " / \   / \   / \   / \   / \   / \ "
-	@echo "( l ) ( e ) ( m ) ( - ) ( i ) ( n )"
-	@echo " \_/   \_/   \_/   \_/   \_/   \_/ "
-
 %.o:%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): display $(LIB) $(OBJS)
+$(NAME): $(LIB) $(OBJS) $(HDR)
+	@echo " / \   / \   / \   / \   / \   / \ "
+	@echo "( l ) ( e ) ( m ) ( - ) ( i ) ( n )"
+	@echo " \_/   \_/   \_/   \_/   \_/   \_/ "
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft -lft
 	@echo "EXECUTABLE BUILT\t\t\033[0;32m✓\033[0m"
 

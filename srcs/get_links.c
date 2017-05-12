@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_links.c                                      :+:      :+:    :+:   */
+/*   get_links.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 18:41:25 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 16:21:31 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/05/12 17:47:59 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/05/12 19:20:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- 
+
 #include "../includes/lemin.h"
 
 t_node		*get_room(t_node *rooms, char *name)
@@ -25,16 +25,17 @@ t_node		*get_room(t_node *rooms, char *name)
 
 int			save_links(t_lemin *lemin, char *line)
 {
-	int 	ret;
+	int		ret;
 
 	ret = 1;
 	if (!ft_strncmp(line, "##", 2))
 		ret = 0;
 	if (ret && ft_strnchr(line, '-') != 1)
 		ret = 0;
-	if (!(lemin->links = links_to_tab(lemin, lemin->links, line)))
+	if (!(links_to_tab(lemin, lemin->links, line)))
 		ret = 0;
-	lemin->nb_link++;
+	if (ret)
+		lemin->nb_link++;
 	return (ret);
 }
 

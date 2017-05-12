@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 13:48:56 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 17:58:32 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:53:54 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ int			parse_nodes(t_lemin *lemin, char *str)
 	add_room(lemin, lemin->rooms, str);
 	return (1);
 }
-

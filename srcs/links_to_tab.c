@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 09:53:46 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/11 16:10:47 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:19:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		is_unique(t_node ***links, t_node **new)
 			(!ft_strcmp((*links)[1]->name, new[0]->name)
 			&& (!ft_strcmp((*links)[0]->name, new[1]->name))))
 			return (0);
-			links++;
+		links++;
 	}
 	return (1);
 }
@@ -83,7 +83,7 @@ t_node			***links_to_tab(t_lemin *lemin, t_node ***tab, char *str)
 		return (tab);
 	}
 	if (!tab)
-		return (create_tab(link));
+		return (lemin->links = create_tab(link));
 	len = 0;
 	while (tab[len])
 		len++;
@@ -94,5 +94,6 @@ t_node			***links_to_tab(t_lemin *lemin, t_node ***tab, char *str)
 	ft_memcpy((void *)new, (void *)tab, len * sizeof(t_node **));
 	new[len] = link;
 	free((void *)tab);
+	lemin->links = new;
 	return (new);
 }

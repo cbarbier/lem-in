@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 17:25:38 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 16:06:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 18:07:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-static t_node		**set_paths(t_lemin *lemin, t_node *end)
+static t_node	**set_paths(t_lemin *lemin, t_node *end)
 {
 	t_node	**paths;
 	int		index;
@@ -27,7 +27,6 @@ static t_node		**set_paths(t_lemin *lemin, t_node *end)
 		{
 			index_path = -end->child[index]->state - 1;
 			paths[index_path] = end->child[index];
-//			ft_printf("ip: %d  : %s\n", index_path, paths[index_path]->name);
 		}
 		index++;
 	}
@@ -44,7 +43,8 @@ static int		put_helper(t_lemin *lemin, t_node *room, int *nb, int left)
 	i = 0;
 	while (room != lemin->start)
 	{
-		if ((*nb < lemin->nb_ant && room->pnext == lemin->start) || room->pnext->ant)
+		if ((*nb < lemin->nb_ant && room->pnext == lemin->start)
+				|| room->pnext->ant)
 		{
 			ant = (room->pnext == lemin->start ? ++(*nb) : room->pnext->ant);
 			room->ant = ant;

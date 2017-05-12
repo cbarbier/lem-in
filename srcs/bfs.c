@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:36:18 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 17:20:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:52:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int			reset_queue(t_node *queue)
 	return (1);
 }
 
-static int			bfs(t_lemin *lemin, t_node	*queue, int ipath)
+static int			bfs(t_lemin *lemin, t_node *queue, int ipath)
 {
 	t_node		*tmp;
 	int			index;
@@ -42,15 +42,11 @@ static int			bfs(t_lemin *lemin, t_node	*queue, int ipath)
 	while (queue)
 	{
 		index = 0;
-		if (DEBUG)
-			ft_printf("cur %s\n", queue->name);
 		while (index < queue->nb_child)
 		{
 			if (queue->child[index]->state >= 0
 			&& queue->child[index]->state != ipath)
 			{
-				if (DEBUG)
-					ft_printf("child %s ", queue->child[index]->name);
 				queue->child[index]->pprev = queue;
 				tmp->qnext = queue->child[index];
 				tmp = tmp->qnext;
@@ -60,8 +56,6 @@ static int			bfs(t_lemin *lemin, t_node	*queue, int ipath)
 			}
 			index++;
 		}
-		if (DEBUG)
-			ft_printf("\n");
 		queue = queue->qnext;
 	}
 	return (0);
@@ -76,7 +70,7 @@ static int			mark_path(t_lemin *lemin, t_node *room, int ipath)
 		room->state = -ipath;
 		tmp = room;
 		room = room->pprev;
-		room->pnext = tmp;;
+		room->pnext = tmp;
 	}
 	lemin->end->pnext = tmp;
 	return (1);
@@ -100,7 +94,6 @@ int					find_path(t_lemin *lemin, int multi)
 		reset_queue(lemin->end);
 		if (!lemin->nb_path && lemin->start->pprev != lemin->end)
 			lemin->start->state = 0;
-//		put_tree(lemin);
 		lemin->nb_path++;
 	}
 	return (lemin->nb_path);

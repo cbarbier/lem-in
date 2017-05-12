@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 09:26:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 18:19:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	ft_strtabdel(char ***at)
 	tab = *at;
 	while (*tab)
 		ft_strdel(tab++);
+	free(*at);
 	*at = NULL;
 }

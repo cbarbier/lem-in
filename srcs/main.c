@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 16:24:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-int				put_tree(t_lemin *lemin)
+void			put_tree(t_lemin *lemin)
 {
 	t_node		*rooms;
 	int			index;
@@ -26,17 +26,17 @@ int				put_tree(t_lemin *lemin)
 			ft_printf("{red}start{no}\n");
 		if (rooms == lemin->end)
 			ft_printf("{red}end{no}\n");
-		ft_printf("{grn}%s {yel}[%d,  %d]{no}  nb_child: %d\n", rooms->name, rooms->x, rooms->y, rooms->nb_child);
+		ft_printf("{grn}%s {yel}[%d,  %d]{no}  nb_child: %d\n",
+				rooms->name, rooms->x, rooms->y, rooms->nb_child);
 		while (index < rooms->nb_child)
 		{
-			ft_printf("{blu} %s {%d}", rooms->child[index]->name, rooms->child[index]->state);
+			ft_printf("{blu} %s {%d}",
+					rooms->child[index]->name, rooms->child[index]->state);
 			index++;
 		}
-		ft_printf("\n{grn}------------{no}\n");
 		rooms = rooms->next;
 	}
 	ft_printf("{red}END OF TREE{no}\n");
-	return (1);
 }
 
 static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
@@ -57,7 +57,7 @@ static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
 			{
 				last = room;
 				room = room->child[index];
-				break;
+				break ;
 			}
 			index++;
 		}
@@ -65,7 +65,7 @@ static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
 	ft_printf("%s\n", room->name);
 	return (1);
 }
-		
+
 static int		put_paths(t_lemin *lemin)
 {
 	int		index;
@@ -85,13 +85,14 @@ static int		put_paths(t_lemin *lemin)
 int				main(int argc, char **argv)
 {
 	t_lemin		lemin;
+
 	(void)argv;
 	(void)argc;
-
 	ft_bzero(&lemin, sizeof(t_lemin));
 	if (!parse(&lemin) || !set_links(lemin.links)
 	|| !find_path(&lemin, 1))
 	{
+		free_lemin(&lemin);
 		ft_printf("ERROR\n");
 		return (0);
 	}
@@ -102,5 +103,6 @@ int				main(int argc, char **argv)
 	if (DEBUG)
 		put_paths(&lemin);
 	put_ants(&lemin, 0);
+	free_lemin(&lemin);
 	return (1);
 }

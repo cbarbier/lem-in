@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 17:28:48 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/10 19:10:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:46:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char		**check_room(char *str, char ***infos, int *coords)
 {
-	char	**t; 
+	char	**t;
 	int		ret;
 
 	ret = 1;
@@ -44,7 +44,7 @@ static t_node	*create_node(t_lemin *lemin, char *str, int *co)
 	return (new);
 }
 
-static t_node	*add_list(t_lemin *lemin, t_node **alst,  char *str, int *co)
+static t_node	*add_list(t_lemin *lemin, t_node **alst, char *str, int *co)
 {
 	t_node		*tmp;
 	t_node		*new;
@@ -69,7 +69,7 @@ static t_node	*add_list(t_lemin *lemin, t_node **alst,  char *str, int *co)
 	return (new);
 }
 
-t_node			*add_room(t_lemin *lemin, t_node *lst,  char *str)
+t_node			*add_room(t_lemin *lemin, t_node *lst, char *str)
 {
 	char	**infos;
 	int		coords[2];
