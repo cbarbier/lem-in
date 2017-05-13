@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 13:48:56 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 17:53:54 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/05/13 16:24:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ int			parse_nodes(t_lemin *lemin, char *str)
 		return (set_start_n_end(lemin, str));
 	if (str && ft_strchr("#L", str[0]))
 		return (0);
-	add_room(lemin, lemin->rooms, str);
-	return (1);
+	return (add_room(lemin, lemin->rooms, str) ? 1 : 0);
 }
