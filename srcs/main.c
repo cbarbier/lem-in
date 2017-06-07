@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/07 19:11:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,14 @@ static int		put_paths(t_lemin *lemin)
 int				main(int argc, char **argv)
 {
 	t_lemin		lemin;
+	int			multi;
 
-	(void)argv;
-	(void)argc;
+	multi = 0;
+	if (argc == 2 && !ft_strcmp(argv[1], "-m"))
+		multi = 1;
 	ft_bzero(&lemin, sizeof(t_lemin));
 	if (!parse(&lemin) || !set_links(lemin.links)
-	|| !find_path(&lemin, 1))
+	|| !find_path(&lemin, multi))
 	{
 		free_lemin(&lemin);
 		ft_printf("ERROR\n");
