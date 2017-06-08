@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/07 19:05:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/08 09:12:09 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct	s_lemin
 	t_node	*rooms;
 	t_node	*start;
 	t_node	*end;
+	int		opt_m;
+	int		opt_p;
 }				t_lemin;
 int				parse(t_lemin *lemin);
 t_node			*add_room(t_lemin *lemin, t_node *lst, char *str);

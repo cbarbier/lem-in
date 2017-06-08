@@ -6,11 +6,32 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/07 19:11:51 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/08 14:23:56 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+static void		set_opt(t_lemin *lemin, int argc, char **argv)
+{
+	int		index;
+
+	index = 1;
+
+	while (index < argc)
+	{
+		if (ft_strlen(argv[index]) > 1 && argv[index][0] == '-')
+		{
+			if (ft_strchr(argv[index], 'm'))
+					lemin->opt_m = 1;
+			if (ft_strchr(argv[index], 'p'))
+					lemin->opt_p = 1;
+		}
+		else
+			break;
+		index++;
+	}
+}
 
 void			put_tree(t_lemin *lemin)
 {
@@ -47,7 +68,7 @@ static int		put_a_path(t_lemin *lemin, t_node *room, int mark)
 	last = 0;
 	while (room != lemin->end)
 	{
-		ft_printf("%s - ", room->name);
+		ft_printf("%s -> ", room->name);
 		index = 0;
 		while (index < room->nb_child)
 		{
@@ -70,29 +91,28 @@ static int		put_paths(t_lemin *lemin)
 {
 	int		index;
 
-	ft_printf("number of path found: %d\n", lemin->nb_path);
+	ft_printf("\n\n{red}#####INFOS#######\n");
+	ft_printf("{yel}  >number of path found: %d\n", lemin->nb_path);
 	index = 1;
 	while (index <= lemin->nb_path)
 	{
-		ft_printf("PATH %d\n", index);
+		ft_printf("{grn}  >path %d\n", index);
 		put_a_path(lemin, lemin->start, -index);
-		ft_printf("-------\n");
+		ft_printf("\n");
 		index++;
 	}
+	ft_printf("\n{red}#################\n{no}");
 	return (1);
 }
 
 int				main(int argc, char **argv)
 {
 	t_lemin		lemin;
-	int			multi;
 
-	multi = 0;
-	if (argc == 2 && !ft_strcmp(argv[1], "-m"))
-		multi = 1;
 	ft_bzero(&lemin, sizeof(t_lemin));
+	set_opt(&lemin, argc, argv);
 	if (!parse(&lemin) || !set_links(lemin.links)
-	|| !find_path(&lemin, multi))
+	|| !find_path(&lemin, lemin.opt_m))
 	{
 		free_lemin(&lemin);
 		ft_printf("ERROR\n");
@@ -102,9 +122,9 @@ int				main(int argc, char **argv)
 	ft_printf("\n");
 	if (DEBUG)
 		put_tree(&lemin);
-	if (DEBUG)
-		put_paths(&lemin);
 	put_ants(&lemin, 0);
+	if (lemin.opt_p)
+		put_paths(&lemin);
 	free_lemin(&lemin);
 	return (1);
 }
