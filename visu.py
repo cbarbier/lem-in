@@ -57,6 +57,10 @@ def parser( lemin, nodes ):
             nodes[n]['y'] = int(y)
             update_max( lemin , nodes[n]['x'], nodes[n]['y'])
             nodes[n]['pos'] = pos
+            if pos == -1:
+                lemin['start'] = n
+            elif pos == 1:
+                lemin['end'] = n
             pos = 0
         else:
             n1, n2 = line.split('-')
@@ -77,29 +81,33 @@ def reset_canvas( canvas, lemin ):
         draw_node( canvas, node['x'], node['y'], "#c3c3c3" , node['pos'] )
 
 def store_ants( lemin ):
-    lemin['ants'] = []
+    lemin['L'] = []
     for line in sys.stdin:
         if line == "\n":
             return
-        lemin['ants'].append( line )
+        lemin['L'].append( line )
+
 
 def put_ants( canvas, lemin ):
-    if len(lemin['ants']) > 0:
-        line = lemin['ants'][0]
-        lemin['ants'] = lemin['ants'][1:]
+    if len(lemin['L']) > 0:
+        line = lemin['L'][0]
+        lemin['L'] = lemin['L'][1:]
     else:
         sys.exit()
-    reset_canvas( canvas, lemin )
     ants = line.split(' ')
+    lemin['ants'] = {}
     for ant in ants:
-        a, r = ant[1:].split('-')
+        n, r = ant[1:].split('-')
         if r[-1] == "\n":
             r = r[:-1]
-        r = lemin['nodes'][r]
-        c = lemin['colors'][int(a) % 8]
-        draw_ant( canvas, r['x'], r['y'], c )
-    #canvas.pack()
+        if n not in lemin['ants']:
+            frm = lemin['start'] 
+        else:
+            frm = lemin['ants'][n][1]
+        lemin['ants'][n] = [frm, r, lemin['colors'][int(n) % 8]]
+        draw_ant( canvas, lemin['nodes'][r]['x'], lemin['nodes'][r]['y'], lemin['ants'][n][2] )
     canvas.after( 2000, put_ants, canvas, lemin )
+    #canvas.pack()
 
 def set_random_coord( lemin ):
     lemin['maxx'] = 800

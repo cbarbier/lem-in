@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/08 14:23:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/09 15:07:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ static void		set_opt(t_lemin *lemin, int argc, char **argv)
 	int		index;
 
 	index = 1;
-
 	while (index < argc)
 	{
 		if (ft_strlen(argv[index]) > 1 && argv[index][0] == '-')
 		{
 			if (ft_strchr(argv[index], 'm'))
-					lemin->opt_m = 1;
+				lemin->opt_m = 1;
 			if (ft_strchr(argv[index], 'p'))
-					lemin->opt_p = 1;
+				lemin->opt_p = 1;
 		}
 		else
-			break;
+			break ;
 		index++;
 	}
 }
