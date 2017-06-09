@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 18:08:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 18:47:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:58:12 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+int			ft_strtab_pop(char **tab)
+{
+	int		index;
+	char	**tmp;
+
+	index = 0;
+	tmp = 0;
+	while (tab[index])
+	{
+		tmp = tab + index;
+		index++;
+	}
+	if (tmp)
+		ft_strdel(tmp);
+	return (1);
+}
 
 int			free_lemin(t_lemin *lemin)
 {

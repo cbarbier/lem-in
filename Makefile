@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/05/12 18:37:35 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/06/09 16:52:35 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS			= srcs/main.c \
 				  srcs/bfs.c \
 				  srcs/put_ants.c \
 				  srcs/parse_nodes.c \
-				  srcs/free.c
+				  srcs/tools.c
 
 OBJS			= $(SRCS:.c=.o)
 

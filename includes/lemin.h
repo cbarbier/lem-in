@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/08 09:12:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:57:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int				find_path(t_lemin *lemin, int multi);
 void			put_tree(t_lemin *lemin);
 int				put_ants(t_lemin *lemin, int nb_ant);
 int				free_lemin(t_lemin *lemin);
+int				ft_strtab_pop(char **tab);
 
 #endif
