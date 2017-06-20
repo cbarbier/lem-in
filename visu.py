@@ -53,8 +53,8 @@ def parser( lemin, nodes ):
         if '-' not in line:
             n, x, y = line.split()
             nodes[n] = {'name': n, 'links': []}
-            nodes[n]['x'] = int(x)
-            nodes[n]['y'] = int(y)
+            nodes[n]['x'] = abs(int(x))
+            nodes[n]['y'] = abs(int(y))
             update_max( lemin , nodes[n]['x'], nodes[n]['y'])
             nodes[n]['pos'] = pos
             if pos == -1:
@@ -89,6 +89,7 @@ def store_ants( lemin ):
 
 
 def put_ants( canvas, lemin ):
+    reset_canvas( canvas, lemin )
     if len(lemin['L']) > 0:
         line = lemin['L'][0]
         lemin['L'] = lemin['L'][1:]
